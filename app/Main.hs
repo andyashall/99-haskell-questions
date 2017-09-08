@@ -6,13 +6,16 @@ import Data.List (group)
 
 data NestedList a = Elem a | List [NestedList a]
 
+data ListItem a = Single a | Multiple (Int, a)
+    deriving (Show)
+
 main :: IO ()
 main = do
   let s = myNth ["4", "4", "2", "1", "8", "hello"] 2
   let i = revL ["4", "4", "2", "1", "8", "hello"]
   let p = isPal [1,2,2,1]
   let f = flat (List [Elem 5, List [Elem 4, List [Elem 7, Elem 2], Elem 9]])
-  let c = leng [1,1,1,3,3,3,4,4,4,5]
+  let c = lengM [1,1,1,3,9,3,3,5,4,4,4,5]
   print c
 
 -- 1. Get the last item in a list
@@ -63,3 +66,10 @@ pack (x:xs) = if x `elem` (head (pack xs))
 -- 10. Run-length encoding of a list
 leng :: (Eq a) => [a] -> [(Int, a)]
 leng xs = map (\x -> (length x,head x)) (group xs)
+
+-- 11. Run-length encoding of a list with singles
+lengM :: (Eq a) => [a] -> [ListItem a]
+lengM xs = map (\x -> case length x of
+  1 -> Single x
+  _ -> Multiple (length x, head x))
+  (group xs)
