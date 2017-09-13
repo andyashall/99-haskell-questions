@@ -6,7 +6,7 @@ import Data.List (group)
 
 data NestedList a = Elem a | List [NestedList a]
 
-data ListItem a = Single a | Multiple (Int, a)
+data ListItem a = Single a | Multiple Int a
     deriving (Show)
 
 main :: IO ()
@@ -16,7 +16,9 @@ main = do
   let p = isPal [1,2,2,1]
   let f = flat (List [Elem 5, List [Elem 4, List [Elem 7, Elem 2], Elem 9]])
   let c = lengM [1,1,1,3,9,3,3,5,4,4,4,5]
-  print c
+  let d = decodeM [Multiple 3 1,Single 3,Single 9,Multiple 2 3,Single 5,Multiple 3 4,Single 5]
+  let du = repE [1,2,3,4] 3
+  print du
 
 -- 1. Get the last item in a list
 myLast :: [a] -> a
@@ -69,7 +71,19 @@ leng xs = map (\x -> (length x,head x)) (group xs)
 
 -- 11. Run-length encoding of a list with singles
 lengM :: (Eq a) => [a] -> [ListItem a]
-lengM xs = map (\x -> case length x of
-  1 -> Single x
-  _ -> Multiple (length x, head x))
-  (group xs)
+lengM xs = [y | x <- group xs, let y = if (length x) == 1 then Single (head x) else Multiple (length x) (head x)]
+
+-- 12; Decode Run-length encoding of a list with singles
+decodeM :: [ListItem a] -> [a]
+decodeM = concatMap decodeHelper
+    where
+      decodeHelper (Single x)     = [x]
+      decodeHelper (Multiple n x) = replicate n x
+
+-- 14. Duplicate elms in list
+dupE :: (Eq a) => [a] -> [a]
+dupE = concatMap (\x -> [x,x])
+
+-- 15. Replicate Elms x times
+repE :: [a] -> Int -> [a]
+repE xs n = concatMap (replicate n) xs
