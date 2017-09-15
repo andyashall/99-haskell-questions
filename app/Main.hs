@@ -17,7 +17,7 @@ main = do
   let f = flat (List [Elem 5, List [Elem 4, List [Elem 7, Elem 2], Elem 9]])
   let c = lengM [1,1,1,3,9,3,3,5,4,4,4,5]
   let d = decodeM [Multiple 3 1,Single 3,Single 9,Multiple 2 3,Single 5,Multiple 3 4,Single 5]
-  let du = repE [1,2,3,4] 3
+  let du = dropN [1,2,3,4] 3
   print du
 
 -- 1. Get the last item in a list
@@ -87,3 +87,9 @@ dupE = concatMap (\x -> [x,x])
 -- 15. Replicate Elms x times
 repE :: [a] -> Int -> [a]
 repE xs n = concatMap (replicate n) xs
+
+-- 16. Drop every nth elem in list
+dropN :: [a] -> Int -> [a]
+dropN xs n
+  | length xs < n = xs
+  | otherwise     = take (n-1) xs ++ dropN (drop n xs) n
