@@ -93,3 +93,9 @@ dropN :: [a] -> Int -> [a]
 dropN xs n
   | length xs < n = xs
   | otherwise     = take (n-1) xs ++ dropN (drop n xs) n
+
+split :: [a] -> Int -> ([a], [a])
+split []         _             = ([], [])
+split l@(x : xs) n | n > 0     = (x : ys, zs)
+                   | otherwise = ([], l)
+    where (ys,zs) = split xs (n - 1)
