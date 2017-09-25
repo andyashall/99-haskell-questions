@@ -19,7 +19,8 @@ main = do
   let d = decodeM [Multiple 3 1,Single 3,Single 9,Multiple 2 3,Single 5,Multiple 3 4,Single 5]
   let du = dropN [1,2,3,4] 3
   let sp = split "abcdefghik" 3
-  print sp
+  let sl = slice [1,2,3,4,5,6,7,8,9] 2 5
+  print sl
 
 -- 1. Get the last item in a list
 myLast :: [a] -> a
@@ -95,9 +96,18 @@ dropN xs n
   | length xs < n = xs
   | otherwise     = take (n-1) xs ++ dropN (drop n xs) n
 
--- Split list into 2
+-- 17. Split list into 2
 split :: [a] -> Int -> ([a], [a])
 split []         _             = ([], [])
 split l@(x : xs) n | n > 0     = (x : ys, zs)
                    | otherwise = ([], l)
     where (ys,zs) = split xs (n - 1)
+
+-- 18. Slice list 
+slice :: [a] -> Int -> Int -> Maybe [a]
+slice [] _ _ = Just []
+slice xs k n  | k == n = Just []
+    | k > n || k > length xs || 
+                  n > length xs || k < 0 || n < 0 = Nothing
+    | k == 0 = Just (take n xs)
+    | otherwise = Just (drop (k-1) $ take n xs)
