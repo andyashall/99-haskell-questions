@@ -1,11 +1,11 @@
 
 ==================== FINAL INTERFACE ====================
-2017-09-25 11:00:37.62315 UTC
+2017-09-26 11:32:49.151357 UTC
 
 interface main@main:Main 8002
-  interface hash: 04cb03ef53b69b491a2f3c485f8d67b0
-  ABI hash: a96ee98336f519e7bc8c72911456150d
-  export-list hash: 9013d70b6e42de5b1280c721112b8579
+  interface hash: ca1e9bb161e3cb85b809589171f46ada
+  ABI hash: e327dd8c01879a0125800a9fc9374bbc
+  export-list hash: 6e38bac9af1257cde3ee0c5fa329d348
   orphan hash: 85792807837221b839ac0b3338955417
   flag hash: 47c6d773297114f4480e2b123a2437d8
   sig of: Nothing
@@ -17,6 +17,7 @@ exports:
   Main.dropN
   Main.dupE
   Main.flat
+  Main.fullWords
   Main.isPal
   Main.leng
   Main.lengM
@@ -42,6 +43,7 @@ family instance modules: base-4.9.1.0:Control.Applicative
                          base-4.9.1.0:Data.Monoid base-4.9.1.0:Data.Type.Equality
                          base-4.9.1.0:GHC.Generics base-4.9.1.0:GHC.IO.Exception
                          base-4.9.1.0:GHC.TypeLits
+import  -/  base-4.9.1.0:Data.Char 01433d23661edb6e5ef1536ef1e6774c
 import  -/  base-4.9.1.0:Data.Foldable 3e0b6967a1da89945d0e2d47266337a2
 import  -/  base-4.9.1.0:Data.List 07ae2acca6538aa0800bd0a993ac6ac1
 import  -/  base-4.9.1.0:Data.OldList 27987919d8da2f92e3f472ca81f730f8
@@ -54,6 +56,7 @@ import  -/  base-4.9.1.0:System.IO c9de64c5f5407c4cf1c52500c4d15200
 import  -/  challenge-0.1.0.0@challenge-0.1.0.0-KebrR78zYzuLT0BP3AmsMm:Lib bbe63c82b1a111d7b7dc2509dd3df978
 import  -/  ghc-prim-0.5.0.0:GHC.Classes 0bdf3d057a415ec1b84a7b1994efbe47
 import  -/  ghc-prim-0.5.0.0:GHC.Types 89f8de4f08018c9177c98d979eae0e45
+import  -/  integer-gmp-1.0.0.1:GHC.Integer.Type 318df275d77dcdb18e0006d8d7870c2a
 31517914bd95ca7a2386f69de39152f9
   $fShowListItem ::
     GHC.Show.Show a => GHC.Show.Show (Main.ListItem a)
@@ -374,6 +377,35 @@ c707eccff081f220cadd74e84a910a16
 f6e57b5016e47b755485205469234f84
   flat1 :: [Main.NestedList a] -> [a]
   {- Arity: 1, HasNoCafRefs, Strictness: <S,1*U> -}
+734427fd6ed1fa9ac3f8b39a3d9fedd9
+  fullWords :: GHC.Integer.Type.Integer -> GHC.Base.String
+  {- Arity: 1, Strictness: <S,U>,
+     Unfolding: (\ (n :: GHC.Integer.Type.Integer) ->
+                 case GHC.Show.$w$cshowsPrec1
+                        0#
+                        n
+                        (GHC.Types.[] @ GHC.Types.Char) of ww2 { (#,#) ww3 ww4 ->
+                 case Main.fullWords_go1
+                        (GHC.Types.: @ GHC.Types.Char ww3 ww4) of wild {
+                   [] -> GHC.Types.[] @ GHC.Types.Char
+                   : x xs
+                   -> Main.fullWords_go
+                        (GHC.Types.:
+                           @ [GHC.Types.Char]
+                           x
+                           (Data.OldList.prependToAll
+                              @ [GHC.Types.Char]
+                              Main.fullWords1
+                              xs)) } }) -}
+b9551582077c09a9ebf8c3a0026ae4f9
+  fullWords1 :: [GHC.Types.Char]
+  {- Unfolding: (GHC.CString.unpackCString# "-"#) -}
+a4458cf5afed48d3d197563540dbac11
+  fullWords_go :: [[GHC.Types.Char]] -> [GHC.Types.Char]
+  {- Arity: 1, HasNoCafRefs, Strictness: <S,1*U> -}
+24b98c8453f9a4c4f6b24170ce9b0008
+  fullWords_go1 :: [GHC.Types.Char] -> [[GHC.Types.Char]]
+  {- Arity: 1, Strictness: <S,1*U> -}
 bd1501cb6b2cf059591bdbbe555a23cf
   isPal :: GHC.Classes.Eq a => [a] -> GHC.Types.Bool
   {- Arity: 2, HasNoCafRefs, Strictness: <L,U(C(C1(U)),A)><S,U>,
@@ -425,12 +457,12 @@ d79d6c3d267e5d63fe46150d9ab8a553
                 (\ @ a (x :: [a]) ->
                  case GHC.List.$wlenAcc @ a x 0# of ww2 { DEFAULT ->
                  GHC.Types.I# ww2 }) -}
-724968e721dc4c45e8ee017d4ac6e67f
+c96e2035a39a7fc1507e30901528cc89
   main :: GHC.Types.IO ()
   {- Arity: 1, Strictness: <S,U>,
      Unfolding: InlineRule (0, True, True)
                 Main.main1 `cast` (Sym (GHC.Types.N:IO[0] <()>_R)) -}
-d5cd442b39991cafbc3e79cb1f03f5a9
+f3987905273fe0400cc168f8d9e7fce3
   main1 ::
     GHC.Prim.State# GHC.Prim.RealWorld
     -> (# GHC.Prim.State# GHC.Prim.RealWorld, () #)
@@ -442,125 +474,36 @@ d5cd442b39991cafbc3e79cb1f03f5a9
                    Main.main2
                    GHC.Types.True
                    eta) -}
-4c42ddb7a6af923585ce506323bbffb7
-  main10 :: [GHC.Integer.Type.Integer]
+41236505fbb588c3df07708a008173ec
+  main2 :: [GHC.Types.Char]
+  {- Unfolding: (GHC.Types.:
+                   @ GHC.Types.Char
+                   GHC.Show.shows6
+                   Main.main3) -}
+382080ae33eed594b1d10418d6ae6a29
+  main3 :: GHC.Base.String
+  {- Unfolding: (GHC.Show.showLitString Main.main5 Main.main4) -}
+f2bbeedb1edfa904939c20aabd91e10c
+  main4 :: [GHC.Types.Char]
   {- HasNoCafRefs,
      Unfolding: (GHC.Types.:
-                   @ GHC.Integer.Type.Integer
-                   Main.main17
-                   Main.main11) -}
-e69100ebc758ce8b81228581f7a8e2c1
-  main11 :: [GHC.Integer.Type.Integer]
-  {- HasNoCafRefs,
-     Unfolding: (GHC.Types.:
-                   @ GHC.Integer.Type.Integer
-                   Main.main16
-                   Main.main12) -}
-ebe61b0ce46bd14419f2d4d4fa740e07
-  main12 :: [GHC.Integer.Type.Integer]
-  {- HasNoCafRefs,
-     Unfolding: (GHC.Types.:
-                   @ GHC.Integer.Type.Integer
-                   Main.main15
-                   Main.main13) -}
-8228b0464c9d5c2ec54b6b951483f62f
-  main13 :: [GHC.Integer.Type.Integer]
-  {- HasNoCafRefs,
-     Unfolding: (GHC.Types.:
-                   @ GHC.Integer.Type.Integer
-                   Main.main14
-                   (GHC.Types.[] @ GHC.Integer.Type.Integer)) -}
-8033b8dfc45330fd8ab0e3ddbae836dd
-  main14 :: GHC.Integer.Type.Integer
-  {- HasNoCafRefs, Unfolding: (9) -}
-0cef7b1bbbbeb228ccd7875c6694d569
-  main15 :: GHC.Integer.Type.Integer
-  {- HasNoCafRefs, Unfolding: (8) -}
-075f3fc8de8f296f89ef920cf3e834dc
-  main16 :: GHC.Integer.Type.Integer
-  {- HasNoCafRefs, Unfolding: (7) -}
-c3906077f5b752a7d1aeca9ab8a0c87b
-  main17 :: GHC.Integer.Type.Integer
-  {- HasNoCafRefs, Unfolding: (6) -}
-781e1d6a7de130dcb0b6ca126fad4640
-  main18 :: GHC.Integer.Type.Integer
-  {- HasNoCafRefs, Unfolding: (5) -}
-6dd2723b35db8310272ce6f4a8da95b8
-  main19 :: GHC.Integer.Type.Integer
-  {- HasNoCafRefs, Unfolding: (4) -}
-d07e319923c708745b07c070d20ec69d
-  main2 :: GHC.Base.String
-  {- Unfolding: (case Main.slice
-                        @ GHC.Integer.Type.Integer
-                        Main.main5
-                        Main.main4
-                        Main.main3 of wild {
-                   GHC.Base.Nothing -> GHC.Show.$fShowMaybe3
-                   GHC.Base.Just b1
-                   -> GHC.Base.++
-                        @ GHC.Types.Char
-                        GHC.Show.$fShowMaybe1
-                        (GHC.Show.$fShowInteger_$cshowList
-                           b1
-                           (GHC.Types.[] @ GHC.Types.Char)) }) -}
-88da1d092946a91bb9fa26f361acfe85
-  main20 :: GHC.Integer.Type.Integer
-  {- HasNoCafRefs, Unfolding: (3) -}
-91d9c95ae3d1a3fdc4ab7c5648282b8e
-  main21 :: GHC.Integer.Type.Integer
-  {- HasNoCafRefs, Unfolding: (2) -}
-6a2b77707eacfb029f8780f86c63c505
-  main22 :: GHC.Integer.Type.Integer
-  {- HasNoCafRefs, Unfolding: (1) -}
-19c5e878334a30ecbab161e410ae1c7e
-  main23 ::
+                   @ GHC.Types.Char
+                   GHC.Show.shows6
+                   (GHC.Types.[] @ GHC.Types.Char)) -}
+c697f188ebebddece7f37d919003daab
+  main5 :: GHC.Base.String
+  {- Unfolding: (Main.fullWords Main.main6) -}
+be92347b859d5855ff76b775d5bb9fc7
+  main6 :: GHC.Integer.Type.Integer
+  {- HasNoCafRefs, Unfolding: (576) -}
+c6f4148ad777d33a89f2a03c27d94171
+  main7 ::
     GHC.Prim.State# GHC.Prim.RealWorld
     -> (# GHC.Prim.State# GHC.Prim.RealWorld, () #)
   {- Arity: 1,
      Unfolding: (GHC.TopHandler.runMainIO1
                    @ ()
                    Main.main1 `cast` (Sym (GHC.Types.N:IO[0] <()>_R))) -}
-dd25b60ff45b656887167b14f0fc94bb
-  main3 :: GHC.Types.Int
-  {- HasNoCafRefs, Unfolding: (GHC.Types.I# 5#) -}
-3b63309cd76c47bbff1b3e920bb870ef
-  main4 :: GHC.Types.Int
-  {- HasNoCafRefs, Unfolding: (GHC.Types.I# 2#) -}
-454b0581f04c6de207369530ed1b8926
-  main5 :: [GHC.Integer.Type.Integer]
-  {- HasNoCafRefs,
-     Unfolding: (GHC.Types.:
-                   @ GHC.Integer.Type.Integer
-                   Main.main22
-                   Main.main6) -}
-7e2cde22f841c28554fbb4aaa0503dcd
-  main6 :: [GHC.Integer.Type.Integer]
-  {- HasNoCafRefs,
-     Unfolding: (GHC.Types.:
-                   @ GHC.Integer.Type.Integer
-                   Main.main21
-                   Main.main7) -}
-7e8028017a02b1d5c97e702b559c2b15
-  main7 :: [GHC.Integer.Type.Integer]
-  {- HasNoCafRefs,
-     Unfolding: (GHC.Types.:
-                   @ GHC.Integer.Type.Integer
-                   Main.main20
-                   Main.main8) -}
-bff33eaee53996dfc5260ad7cfac77be
-  main8 :: [GHC.Integer.Type.Integer]
-  {- HasNoCafRefs,
-     Unfolding: (GHC.Types.:
-                   @ GHC.Integer.Type.Integer
-                   Main.main19
-                   Main.main9) -}
-0f62844aa8cb415c0f053862d8766dbe
-  main9 :: [GHC.Integer.Type.Integer]
-  {- HasNoCafRefs,
-     Unfolding: (GHC.Types.:
-                   @ GHC.Integer.Type.Integer
-                   Main.main18
-                   Main.main10) -}
 c9186d4a558f96544d65d38cb8685478
   myLast :: [a] -> a
   {- Arity: 1, Strictness: <S,U>,
@@ -585,7 +528,7 @@ c9186d4a558f96544d65d38cb8685478
 7f25b8113c068e509ff537b59b14f3e2
   pack :: GHC.Classes.Eq a => [a] -> [[a]]
   {- Arity: 2, Strictness: <L,U(C(C1(U)),A)><S,1*U> -}
-0c9586c4510f866d9e99cc28c8344e43
+ed8ae983e0fafc915c64d5f07f359ffa
   repE :: [a] -> GHC.Types.Int -> [a]
   {- Arity: 2, HasNoCafRefs, Strictness: <S,1*U><L,U(U)>,
      Unfolding: (\ @ a (xs :: [a]) (n :: GHC.Types.Int) ->
@@ -605,7 +548,7 @@ c9186d4a558f96544d65d38cb8685478
                                  n1 :: [a] = go ys
                                } in
                                let {
-                                 lvl3 :: [a] = GHC.Types.: @ a y n1
+                                 lvl :: [a] = GHC.Types.: @ a y n1
                                } in
                                letrec {
                                  $wxs :: GHC.Prim.Int# -> [a]
@@ -613,7 +556,7 @@ c9186d4a558f96544d65d38cb8685478
                                  = \ (ww :: GHC.Prim.Int#) ->
                                    case ww of ds1 {
                                      DEFAULT -> GHC.Types.: @ a y ($wxs (GHC.Prim.-# ds1 1#))
-                                     1# -> lvl3 }
+                                     1# -> lvl }
                                } in
                                $wxs y1 } } }
                  } in

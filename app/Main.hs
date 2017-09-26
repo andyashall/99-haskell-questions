@@ -2,7 +2,8 @@ module Main where
 
 import Lib
 
-import Data.List (group)
+import Data.List (group, intersperse)
+import Data.Char (digitToInt)
 
 data NestedList a = Elem a | List [NestedList a]
 
@@ -20,7 +21,8 @@ main = do
   let du = dropN [1,2,3,4] 3
   let sp = split "abcdefghik" 3
   let sl = slice [1,2,3,4,5,6,7,8,9] 2 5
-  print sl
+  let fw = fullWords 576
+  print fw
 
 -- 1. Get the last item in a list
 myLast :: [a] -> a
@@ -111,3 +113,8 @@ slice xs k n  | k == n = Just []
                   n > length xs || k < 0 || n < 0 = Nothing
     | k == 0 = Just (take n xs)
     | otherwise = Just (drop (k-1) $ take n xs)
+
+fullWords :: Integer -> String
+fullWords n = concat $ intersperse "-" [digits!!digitToInt d | d <- show n]
+  where digits = ["zero", "one", "two", "three", "four",
+                  "five", "six", "seven", "eight", "nine"]
