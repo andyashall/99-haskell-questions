@@ -22,7 +22,9 @@ main = do
   let sp = split "abcdefghik" 3
   let sl = slice [1,2,3,4,5,6,7,8,9] 2 5
   let fw = fullWords 576
-  print fw
+  let qs = maximum' [10,2,5,3,1,6,7,4,2,3,4,8,9]
+  let rep = replicate' 5 "A"
+  print rep
 
 -- 1. Get the last item in a list
 myLast :: [a] -> a
@@ -118,3 +120,24 @@ fullWords :: Integer -> String
 fullWords n = concat $ intersperse "-" [digits!!digitToInt d | d <- show n]
   where digits = ["zero", "one", "two", "three", "four",
                   "five", "six", "seven", "eight", "nine"]
+
+quicksort :: (Ord a) => [a] -> [a]  
+quicksort [] = []  
+quicksort (x:xs) =   
+    let smallerSorted = quicksort [a | a <- xs, a <= x]  
+        biggerSorted = quicksort [a | a <- xs, a > x]  
+    in  smallerSorted ++ [x] ++ biggerSorted  
+
+
+maximum' :: (Ord a) => [a] -> a  
+maximum' [] = error "maximum of empty list"  
+maximum' [x] = x  
+maximum' (x:xs)   
+    | x > maxTail = x  
+    | otherwise = maxTail  
+    where maxTail = maximum' xs  
+
+replicate' :: (Num i, Ord i) => i -> a -> [a]  
+replicate' n x  
+    | n <= 0    = []  
+    | otherwise = x:replicate' (n-1) x  
