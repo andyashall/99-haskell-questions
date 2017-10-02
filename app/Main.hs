@@ -13,7 +13,7 @@ data ListItem a = Single a | Multiple Int a
 main :: IO ()
 main = do
   let s = myNth ["4", "4", "2", "1", "8", "hello"] 2
-  let i = revL ["4", "4", "2", "1", "8", "hello"]
+  let i = rev2 ["4", "4", "2", "1", "8", "hello"]
   let p = isPal [1,2,2,1]
   let f = flat (List [Elem 5, List [Elem 4, List [Elem 7, Elem 2], Elem 9]])
   let c = lengM [1,1,1,3,9,3,3,5,4,4,4,5]
@@ -24,7 +24,8 @@ main = do
   let fw = fullWords 576
   let qs = maximum' [10,2,5,3,1,6,7,4,2,3,4,8,9]
   let rep = replicate' 5 "A"
-  print rep
+  let rec = recTen 100
+  print p
 
 -- 1. Get the last item in a list
 myLast :: [a] -> a
@@ -50,9 +51,13 @@ listN x = length x
 revL :: [a] -> [a]
 revL x = reverse x
 
+rev2 :: [a] -> [a]
+rev2 [] = []
+rev2 (x:xs) = rev2 xs ++ [x]
+
 -- 6. Is a list a palindrome
 isPal :: (Eq a) => [a] -> Bool
-isPal x = x == (reverse x)
+isPal x = x == (rev2 x)
 
 -- 7. Flatten nested list
 flat :: NestedList a -> [a]
@@ -141,3 +146,9 @@ replicate' :: (Num i, Ord i) => i -> a -> [a]
 replicate' n x  
     | n <= 0    = []  
     | otherwise = x:replicate' (n-1) x  
+
+recTen :: Int -> Int
+recTen x
+  | x == 10 = x
+  | x < 10 = recTen (x+1)
+  | x > 10 = recTen (x-1)
