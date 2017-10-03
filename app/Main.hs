@@ -25,7 +25,7 @@ main = do
   let qs = quicksort [10,2,5,3,1,6,7,4,2,3,4,8,9,11,43,34,65,52,76,43,12,54,729,77,44,10]
   let rep = replicate' 5 "A"
   let rec = recTen 100
-  let dt = divTen 50
+  let dt = applyTwice divTen 50
   print dt
 
 -- 1. Get the last item in a list
@@ -153,6 +153,9 @@ recTen x
   | x == 10 = x
   | x < 10 = recTen (x+1)
   | x > 10 = recTen (x-1)
+
+applyTwice :: (a -> a) -> a -> a  
+applyTwice f x = f (f x) 
 
 divTen :: (Floating a) => a -> a
 divTen = (/10)
