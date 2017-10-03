@@ -18,6 +18,7 @@ cabal.sandbox.config
 *.hp
 *.eventlog
 .stack-work/
+.stack-works/
 <<<<<<< HEAD
 cabal.project.local
 =======
