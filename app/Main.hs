@@ -22,10 +22,10 @@ main = do
   let sp = split "abcdefghik" 3
   let sl = slice [1,2,3,4,5,6,7,8,9] 2 5
   let fw = fullWords 576
-  let qs = maximum' [10,2,5,3,1,6,7,4,2,3,4,8,9]
+  let qs = quicksort [10,2,5,3,1,6,7,4,2,3,4,8,9,11,43,34,65,52,76,43,12,54,77,44,10]
   let rep = replicate' 5 "A"
   let rec = recTen 100
-  print p
+  print qs
 
 -- 1. Get the last item in a list
 myLast :: [a] -> a
