@@ -22,10 +22,11 @@ main = do
   let sp = split "abcdefghik" 3
   let sl = slice [1,2,3,4,5,6,7,8,9] 2 5
   let fw = fullWords 576
-  let qs = quicksort [10,2,5,3,1,6,7,4,2,3,4,8,9,11,43,34,65,52,76,43,12,54,77,44,10]
+  let qs = quicksort [10,2,5,3,1,6,7,4,2,3,4,8,9,11,43,34,65,52,76,43,12,54,729,77,44,10]
   let rep = replicate' 5 "A"
   let rec = recTen 100
-  print qs
+  let dt = divTen 50
+  print dt
 
 -- 1. Get the last item in a list
 myLast :: [a] -> a
@@ -152,3 +153,6 @@ recTen x
   | x == 10 = x
   | x < 10 = recTen (x+1)
   | x > 10 = recTen (x-1)
+
+divTen :: (Floating a) => a -> a
+divTen = (/10)
