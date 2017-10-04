@@ -26,7 +26,8 @@ main = do
   let rep = replicate' 5 "A"
   let rec = recTen 100
   let dt = applyTwice divTen 50
-  print dt
+  let zw = zipWith' (+) [4,2,5,6] [2,6,2,3] 
+  print zw
 
 -- 1. Get the last item in a list
 myLast :: [a] -> a
@@ -159,3 +160,8 @@ applyTwice f x = f (f x)
 
 divTen :: (Floating a) => a -> a
 divTen = (/10)
+
+zipWith' :: (a -> b -> c) -> [a] -> [b] -> [c]  
+zipWith' _ [] _ = []  
+zipWith' _ _ [] = []  
+zipWith' f (x:xs) (y:ys) = f x y : zipWith' f xs ys  
