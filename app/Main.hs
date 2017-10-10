@@ -13,20 +13,20 @@ data ListItem a = Single a | Multiple Int a
 main :: IO ()
 main = do
   let s = myNth ["4", "4", "2", "1", "8", "hello"] 2
-  let i = rev2 ["4", "4", "2", "1", "8", "hello"]
-  let p = isPal [1,2,2,1]
-  let f = flat (List [Elem 5, List [Elem 4, List [Elem 7, Elem 2], Elem 9]])
-  let c = lengM [1,1,1,3,9,3,3,5,4,4,4,5]
-  let d = decodeM [Multiple 3 1,Single 3,Single 9,Multiple 2 3,Single 5,Multiple 3 4,Single 5]
-  let du = dropN [1,2,3,4] 3
-  let sp = split "abcdefghik" 3
-  let sl = slice [1,2,3,4,5,6,7,8,9] 2 5
-  let fw = fullWords 576
-  let qs = quicksort [10,2,5,3,1,6,7,4,2,3,4,8,9,11,43,34,65,52,76,43,12,54,729,77,44,10]
-  let rep = replicate' 5 "A"
-  let rec = recTen 100
-  let dt = applyTwice divTen 50
-  let zw = zipWith' (+) [4,2,5,6] [2,6,2,3] 
+      i = rev2 ["4", "4", "2", "1", "8", "hello"]
+      p = isPal [1,2,2,1]
+      f = flat (List [Elem 5, List [Elem 4, List [Elem 7, Elem 2], Elem 9]])
+      c = lengM [1,1,1,3,9,3,3,5,4,4,4,5]
+      d = decodeM [Multiple 3 1,Single 3,Single 9,Multiple 2 3,Single 5,Multiple 3 4,Single 5]
+      du = dropN [1,2,3,4] 3
+      sp = split "abcdefghik" 3
+      sl = slice [1,2,3,4,5,6,7,8,9] 2 5
+      fw = fullWords 576
+      qs = quicksort [10,2,5,3,1,6,7,4,2,3,4,8,9,11,43,34,65,52,76,43,12,54,729,77,44,10]
+      rep = replicate' 5 "A"
+      rec = recTen 100
+      dt = applyTwice divTen 50
+      zw = zipWith' (+) [4,2,5,6] [2,6,2,3] 
   print zw
 
 -- 1. Get the last item in a list
@@ -164,4 +164,13 @@ divTen = (/10)
 zipWith' :: (a -> b -> c) -> [a] -> [b] -> [c]  
 zipWith' _ [] _ = []  
 zipWith' _ _ [] = []  
-zipWith' f (x:xs) (y:ys) = f x y : zipWith' f xs ys  
+zipWith' f (x:xs) (y:ys) = f x y : zipWith' f xs ys 
+
+-- fib :: Int -> Int -> Int -> Int
+-- fib s n m
+--   | n == 0 = n
+--   | s == m = n
+--   | otherwise = fib (s+1) (n * (n+1)) m
+
+-- fibs :: [Integer]
+-- fibs = 0 : 1 : zipWith (+) fibs (tail fibs)
